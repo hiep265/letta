@@ -22,6 +22,8 @@ if settings.database_engine is DatabaseChoice.POSTGRES:
 
     config.set_main_option("sqlalchemy.url", sync_pg_uri)
     print("Using database: ", sync_pg_uri)
+elif config.get_main_option("sqlalchemy.url") and config.get_main_option("sqlalchemy.url").startswith("postgres"):
+    print("Using database from alembic.ini: ", config.get_main_option("sqlalchemy.url"))
 else:
     config.set_main_option("sqlalchemy.url", "sqlite:///" + os.path.join(letta_config.recall_storage_path, "sqlite.db"))
 
